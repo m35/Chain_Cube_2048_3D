@@ -1,38 +1,39 @@
-﻿using ChainCube.Scripts.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CubeDependencyInjector : MonoBehaviour
+namespace ChainCube.Scripts.Utils
 {
-    [SerializeField] private GameObject _cube;
-
-    public GameObject Cube
+    public class CubeDependencyInjector : MonoBehaviour
     {
-        get => _cube;
-        set
-        {
-            if (_cube == value)
-                return;
+        [SerializeField] private GameObject _cube;
 
-            _cube = value;
-            Inject();
+        public GameObject Cube
+        {
+            get => _cube;
+            set
+            {
+                if (_cube == value)
+                    return;
+
+                _cube = value;
+                Inject();
+            }
         }
-    }
-    private IDependency<GameObject>[] _dependencies;
+        private IDependency<GameObject>[] _dependencies;
 
-    private void Start()
-    {
-        _dependencies = GetComponents<IDependency<GameObject>>();
-
-        if (_cube != null)
-            Inject();
-    }
-
-    private void Inject()
-    {
-        foreach (var dependency in _dependencies)
+        private void Start()
         {
-            dependency.Inject(Cube);
+            _dependencies = GetComponents<IDependency<GameObject>>();
+
+            if (_cube != null)
+                Inject();
+        }
+
+        private void Inject()
+        {
+            foreach (var dependency in _dependencies)
+            {
+                dependency.Inject(Cube);
+            }
         }
     }
 }
-

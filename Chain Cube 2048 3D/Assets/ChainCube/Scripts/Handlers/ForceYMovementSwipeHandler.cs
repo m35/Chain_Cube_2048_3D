@@ -10,7 +10,7 @@ namespace ChainCube.Scripts.Handlers
         private float _force = 1.0f;
         
         private Rigidbody _movableRigidBody;
-        private ISwipeDetector _swipeDetector;
+        private SwipeDetector _swipeDetector;
         
         public void Inject(GameObject dependency)
         {
@@ -19,7 +19,7 @@ namespace ChainCube.Scripts.Handlers
 
         private void Start()
         {
-            _swipeDetector = GetComponent<MouseSwipeDetector>();
+            _swipeDetector = GetComponent<SwipeDetector>();
             Subscribe();
         }
 
@@ -34,8 +34,12 @@ namespace ChainCube.Scripts.Handlers
         private void OnSwipeEnd(Vector2 delta)
         {
             if (_movableRigidBody == null)
+            {
+                Debug.Log(2);
                 return;
-            
+            }
+
+            Debug.Log(3);
             _movableRigidBody.AddForce(_movableRigidBody.transform.forward * _force, ForceMode.Impulse);
             _movableRigidBody = null;
         }
