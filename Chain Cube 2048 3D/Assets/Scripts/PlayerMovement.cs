@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float forceValue;
     [SerializeField, Range(0.5f, 2.5f)] private float normCoef = 1.0f;
 
-    [SerializeField] private float timeBtwShots;
+    private float timeBtwShots;
     [SerializeField] private float startTimeBtwShots;
 
     private float borderDistance = 0f;
@@ -20,11 +20,17 @@ public class PlayerMovement : MonoBehaviour
     private TrailRenderer cubeTail;
     private Rigidbody cube;
 
+    //private Animator animator;
+
+    private LineRenderer line;
+    
     private SwipeDetector swipeDetector;
 
     private void SpawnNewCube()
     {
+        line.enabled = true;
         cubeSpawn = Instantiate(prefabCube, transform.position, transform.rotation);
+        //animator.SetBool("isSpawned", true);
         cube = cubeSpawn.GetComponent<Rigidbody>();
         cubeTail = cubeSpawn.GetComponent<TrailRenderer>();
         cubeTail.enabled = false;
@@ -32,10 +38,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        //animator = GetComponent<Animator>();
+        line = GetComponent<LineRenderer>();
+        line.startWidth = line.endWidth = 1f;
+        line.SetPosition(1, Vector3.forward * 20f);
+        line.enabled = true;
+
         borderDistance = Mathf.Abs(rightBorder.position.x - leftBorder.position.x);
+
         swipeDetector = GetComponent<SwipeDetector>();
         swipeDetector.onSwipe += OnSwipe;
-        swipeDetector.onSwipeEnd += OnSwipeEnd;
+        swipeDetector.onSwipeEnd += OnSwipeEnd;    
     }
 
     private void FixedUpdate()
@@ -81,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+        line.enabled = false;
         cube.AddForce(cube.transform.forward * forceValue, ForceMode.Impulse);
         cubeSpawn = null;
         cube = null;
