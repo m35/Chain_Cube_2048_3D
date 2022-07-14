@@ -33,14 +33,6 @@ public class Cube : MonoBehaviour
 
     private Animator animator;
 
-    private SwipeDetector swipeDetector;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-        animator.SetBool("isSpawned", true);
-    }
-
     private void Start()
     {
         int rand = Random.Range(0, 100);
@@ -74,25 +66,10 @@ public class Cube : MonoBehaviour
         }
         SetRank(rank);
 
-        swipeDetector = GetComponent<SwipeDetector>();
-        //swipeDetector.onSwipeEnd += OnSwipeEnd;
         score = FindObjectOfType<ScoreManager>();
-
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         cubeTail = GetComponent<TrailRenderer>();
-    }
-
-    //private void OnSwipeEnd(Vector2 delta)
-    private void OnSwipeEnd()
-    {
-        if (animator == null)
-        {
-            return;
-        }
-        //animator.SetBool("isSpawned", false);
-        transform.localScale = new Vector3(2f, 2f, 2f);
-        transform.position = new Vector3(transform.position.x, 1.2f, transform.position.z);
-        //swipeDetector.onSwipeEnd -= OnSwipeEnd;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -102,7 +79,6 @@ public class Cube : MonoBehaviour
             if (cubeTail.enabled)
             {
                 cubeTail.enabled = false;
-                OnSwipeEnd();
             }
         }
 
@@ -124,6 +100,7 @@ public class Cube : MonoBehaviour
                 floatingRank.GetComponentInChildren<FloatingRank>().rank = rank;
 
                 score.AddRank(rank);
+                animator.SetBool("isSpawned", true);
 
                 GameObject closestCube = ClosestCube();
                 if (closestCube != null)
