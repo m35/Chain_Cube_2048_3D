@@ -19,6 +19,7 @@ namespace ChainCube.Scripts.Cube
         {
             if (col.points == _pointsContainer.points)
             {
+                Debug.Log(3);
                 _pointsContainer.points *= 2;
                 Destroy(col.gameObject);
             }
@@ -26,6 +27,7 @@ namespace ChainCube.Scripts.Cube
 
         private void Subscribe()
         {
+            Debug.Log(2);
             _detector.onCollisionContinue += OnPointsContainerCollision;
         }
         

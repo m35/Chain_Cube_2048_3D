@@ -15,6 +15,8 @@ namespace ChainCube.Scripts.Cube
                 if (_points == value)
                     return;
 
+
+                Debug.Log(4);
                 _points = value;
                 onPointsChanged?.Invoke(_points);
             }

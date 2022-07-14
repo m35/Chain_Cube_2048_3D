@@ -86,17 +86,4 @@ public class PlayerMovement : MonoBehaviour
         cube = null;
         cubeTail.enabled = true;
     }
-
-    /*private void OnDestroy()
-    {
-        Unsubscribe();
-    }
-
-    private void Unsubscribe()
-    {
-        if (_swipeDetector == null)
-            return;
-            
-        _swipeDetector.onSwipe -= OnSwipe;
-    }*/
 }

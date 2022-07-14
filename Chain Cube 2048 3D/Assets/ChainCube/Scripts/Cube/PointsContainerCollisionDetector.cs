@@ -14,7 +14,8 @@ namespace ChainCube.Scripts.Cube
 
             if (colContainer == null)
                 return;
-            
+
+            Debug.Log(1);
             onCollisionStart?.Invoke(colContainer);
             onCollisionContinue?.Invoke(colContainer);
         }
