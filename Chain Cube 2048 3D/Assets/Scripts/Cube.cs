@@ -10,7 +10,10 @@ public class Cube : MonoBehaviour
     private Cube col;
     private GameObject[] allCubes;
 
+    [SerializeField] private MeshRenderer renderer;
     [SerializeField] private TextMeshPro[] posRanks;
+    [SerializeField] private List<MatSettings> install = new List<MatSettings>();
+
     [SerializeField] private GameObject prefabCube;
     [SerializeField] private int rank;
     [SerializeField] private float forceValue;
@@ -18,31 +21,31 @@ public class Cube : MonoBehaviour
     private void Start()
     {
         int rand = Random.Range(0, 100);
-        if (rand < 30)
+        if (rand < 40)
         {
             rank = 2;
         }
-        else if (rand < 50)
+        else if (rand < 60)
         {
             rank = 4;
         }
-        else if (rand < 70)
+        else if (rand < 80)
         {
             rank = 8;
         }
-        else if (rand < 85)
+        else if (rand < 90)
         {
             rank = 16;
         }
-        else if (rand < 94)
+        else if (rand < 96)
         {
             rank = 32;
         }
-        else if (rand < 99)
+        else if (rand <= 99)
         {
             rank = 64;
         }
-        else if (rand <= 100)
+        else if (rand == 100)
         {
             rank = 128;
         }
@@ -139,14 +142,20 @@ public class Cube : MonoBehaviour
         foreach (TextMeshPro text in posRanks)
         {
             text.text = rank.ToString();
-            /*
-             * var settings = _settings.Find(t => t.points == points);
+
+            MatSettings settings = install.Find(tmp => tmp.rank == rank);
 
             if (settings == null)
-                _renderer.material = default;
+                renderer.material = default;
             else
-                _renderer.material = settings.material;
-            */
+                renderer.material = settings.material;
         }
+    }
+
+    [System.Serializable]
+    public class MatSettings
+    {
+        public int rank;
+        public Material material;
     }
 }

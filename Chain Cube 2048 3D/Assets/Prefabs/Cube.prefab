@@ -1112,6 +1112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd98f4f6ef314d429b1e5421ae48e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderer: {fileID: 7320699141273242586}
   posRanks:
   - {fileID: 4007526353057255115}
   - {fileID: 3561982152211828813}
@@ -1119,6 +1120,37 @@ MonoBehaviour:
   - {fileID: 6658347426630264060}
   - {fileID: 4605600892438003101}
   - {fileID: 2189663246673028813}
+  install:
+  - rank: 2
+    material: {fileID: 2100000, guid: f3bf1776311fff14cb8f9bd23dffbe94, type: 2}
+  - rank: 4
+    material: {fileID: 2100000, guid: 57a86e7cbabbfad46b09268fc93d9a7e, type: 2}
+  - rank: 8
+    material: {fileID: 2100000, guid: 69c9a12979a227e41a0315f773f3e958, type: 2}
+  - rank: 16
+    material: {fileID: 2100000, guid: f10588157a9528c46bbefbf57b3a4a27, type: 2}
+  - rank: 32
+    material: {fileID: 2100000, guid: 664be5339c5f9c7439d398e68a0651cc, type: 2}
+  - rank: 64
+    material: {fileID: 2100000, guid: d94191a1126150c42a1de3c89be7e385, type: 2}
+  - rank: 128
+    material: {fileID: 2100000, guid: 596ef675bc8fba7408d73679e2a8d338, type: 2}
+  - rank: 256
+    material: {fileID: 2100000, guid: 461f291dd6ba076448f7d2e5b4d19ff9, type: 2}
+  - rank: 512
+    material: {fileID: 2100000, guid: f67475f28c48c9346b5493daae44a4f4, type: 2}
+  - rank: 1024
+    material: {fileID: 2100000, guid: ca64345b2485ae4488d92f0752290104, type: 2}
+  - rank: 2048
+    material: {fileID: 2100000, guid: 7ce54498f4b433b41ae6b36d7b9ee257, type: 2}
+  - rank: 4096
+    material: {fileID: 2100000, guid: 020336b70d7fb07419a6788021474f10, type: 2}
+  - rank: 8192
+    material: {fileID: 2100000, guid: c07324d83d70c97499eed9af2ecbc595, type: 2}
+  - rank: 16384
+    material: {fileID: 2100000, guid: 801c39dcdd21427479e44e1391c9c590, type: 2}
+  - rank: 32768
+    material: {fileID: 2100000, guid: 29a6debeed45f6b42843c527e5492b03, type: 2}
   prefabCube: {fileID: 7320699141273242567}
   rank: 2
   forceValue: 8
