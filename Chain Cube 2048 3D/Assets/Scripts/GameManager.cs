@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private ScoreManager scoreManager;
-
     public void ChangeLang()
     {
         item = JsonUtility.FromJson<Item>(File.ReadAllText(Application.streamingAssetsPath + "/Localization/" + lang + ".json"));
@@ -29,6 +28,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        scoreManager = FindObjectOfType<ScoreManager>();
+        player = FindObjectOfType<PlayerMovement>().gameObject;
+        
         if (PlayerPrefs.HasKey("SaveLang"))
         {
             lang = PlayerPrefs.GetString("SaveLang");
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour
         int a = 0;
         if (PlayerPrefs.HasKey("LoadS"))
         {
-            a = PlayerPrefs.GetInt("LoadS");
+            //a = PlayerPrefs.GetInt("LoadS");
         }
 
         if (a == 0)

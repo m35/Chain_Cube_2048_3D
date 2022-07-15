@@ -45,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
         InterstitialAds.myAds.LoadAd();
         shoots = 0;
 
-        gameObject.SetActive(false);
-
         //animator = GetComponent<Animator>();
         line = GetComponent<LineRenderer>();
         line.startWidth = line.endWidth = 1f;
@@ -99,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         offset = borderDistance * normCoef * delta.x / Screen.width;
-        
+
         cube.transform.position = new Vector3(cube.transform.position.x + offset, cube.transform.position.y, cube.transform.position.z);
 
         if (cube.transform.position.x > rightBorder.position.x)
