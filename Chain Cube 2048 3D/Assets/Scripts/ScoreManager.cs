@@ -32,7 +32,6 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        rec = "Record";
         Best();
         ShowBest();
         score = GetComponent<TextMeshProUGUI>();

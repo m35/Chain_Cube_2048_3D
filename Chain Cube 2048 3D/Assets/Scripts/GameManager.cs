@@ -3,15 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
+    private Item item;
+    private string lang;
     [SerializeField] private GameObject play;
     private string rest;
     private bool isAct;
     [SerializeField] private TextMeshProUGUI playText;
     [SerializeField] private GameObject[] buttonsLan;
     [SerializeField] private GameObject player;
+    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private ScoreManager scoreManager;
+
+    private void Awake()
+    {
+        if (PlayerPrefs.HasKey("SaveLang"))
+        {
+            lang = PlayerPrefs.GetString("SaveLang");
+            ChangeLang();
+        }
+        else
+        {
+            lang = "EN";
+            ChangeLang();
+        }
+    }
+
+    public void ChangeLang()
+    {
+        item = JsonUtility.FromJson<Item>(File.ReadAllText(Application.streamingAssetsPath + "/Localization/" + lang + ".json"));
+        text.text = item.Pl;
+        rest = item.Res;
+        scoreManager.SetRest(item.Rec);
+        PlayerPrefs.SetString("SaveLang", lang);
+    }
 
     private void Start()
     {
