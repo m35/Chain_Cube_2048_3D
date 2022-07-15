@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Advertisements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     
     private SwipeDetector swipeDetector;
 
+    private int shoots;
+
     private void SpawnNewCube()
     {
         line.enabled = true;
@@ -34,10 +37,13 @@ public class PlayerMovement : MonoBehaviour
         cube = cubeSpawn.GetComponent<Rigidbody>();
         cubeTail = cubeSpawn.GetComponent<TrailRenderer>();
         cubeTail.enabled = false;
+        shoots++;
     }
 
     private void Start()
     {
+        InterstitialAds.myAds.LoadAd();
+        shoots = 0;
         //animator = GetComponent<Animator>();
         line = GetComponent<LineRenderer>();
         line.startWidth = line.endWidth = 1f;
@@ -45,14 +51,26 @@ public class PlayerMovement : MonoBehaviour
         line.enabled = true;
 
         borderDistance = Mathf.Abs(rightBorder.position.x - leftBorder.position.x);
-
+        timeBtwShots = 0f;
+        
         swipeDetector = GetComponent<SwipeDetector>();
         swipeDetector.onSwipe += OnSwipe;
         swipeDetector.onSwipeEnd += OnSwipeEnd;    
     }
 
+    public void OffCube()
+    {
+        cubeSpawn.SetActive(false);
+    }
+
     private void FixedUpdate()
     {
+        if (shoots >= UnityEngine.Random.Range(15, 25))
+        {
+            InterstitialAds.myAds.ShowAd();
+            shoots = 0;
+        }
+
         if (cube == null && timeBtwShots <= 0f)
         {
             SpawnNewCube();

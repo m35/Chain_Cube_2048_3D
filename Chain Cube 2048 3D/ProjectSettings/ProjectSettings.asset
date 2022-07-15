@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Nozer
   productName: Chain Cube 2048 3D
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -841,7 +841,14 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
+    Unity Ads: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -855,11 +862,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 2
-  cloudProjectId: 
+  cloudProjectId: 13e97c89-97da-40aa-aaec-ae113d1d7ab1
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Chain Cube 2048 3D
+  organizationId: nozer-4cc9f53d-622e-49f7-a50b-034d8e3f3029
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

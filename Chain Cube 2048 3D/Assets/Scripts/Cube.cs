@@ -10,6 +10,8 @@ public class Cube : MonoBehaviour
     private Cube col;
     private GameObject[] allCubes;
 
+    private GameManager gameManager;
+
     [SerializeField] private MeshRenderer render;
     [SerializeField] private TextMeshPro[] posRanks;
     [SerializeField] private List<MatSettings> install = new List<MatSettings>();
@@ -70,6 +72,7 @@ public class Cube : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         cubeTail = GetComponent<TrailRenderer>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -100,6 +103,7 @@ public class Cube : MonoBehaviour
                 floatingRank.GetComponentInChildren<FloatingRank>().rank = rank;
 
                 score.AddRank(rank);
+
                 animator.SetBool("isSpawned", true);
 
                 GameObject closestCube = ClosestCube();
@@ -138,7 +142,10 @@ public class Cube : MonoBehaviour
         {
             if(transform.position.z <= deadLine.transform.position.z)
             {
-                Debug.Log("YOU LOSE!");
+                if (gameManager != null)
+                {
+                    gameManager.Restart();
+                }
             }
         }
     }
