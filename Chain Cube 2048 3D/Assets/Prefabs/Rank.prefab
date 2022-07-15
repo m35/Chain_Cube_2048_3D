@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8a2f46cc6a90046a779818b1182f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rank: 128
-  startTimeBtwShots: 1.5
+  rank: 8
+  startTimeBtwShots: 1
 --- !u!95 &3415258138519155652
 Animator:
   serializedVersion: 4

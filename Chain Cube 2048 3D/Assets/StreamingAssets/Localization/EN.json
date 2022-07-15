@@ -1,7 +1,7 @@
 {
 
-	"Pl":"Play",
-	"Res":"Аgain?",
-	"Rec":"Record"
+	"Play":"Play",
+	"Restart":"Аgain?",
+	"Record":"Record"
 
 }
