@@ -18,20 +18,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private ScoreManager scoreManager;
 
-    private void Awake()
-    {
-        if (PlayerPrefs.HasKey("SaveLang"))
-        {
-            lang = PlayerPrefs.GetString("SaveLang");
-            ChangeLang();
-        }
-        else
-        {
-            lang = "EN";
-            ChangeLang();
-        }
-    }
-
     public void ChangeLang()
     {
         item = JsonUtility.FromJson<Item>(File.ReadAllText(Application.streamingAssetsPath + "/Localization/" + lang + ".json"));
@@ -43,10 +29,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerPrefs.HasKey("SaveLang"))
+        {
+            lang = PlayerPrefs.GetString("SaveLang");
+            ChangeLang();
+        }
+        else
+        {
+            lang = "EN";
+            ChangeLang();
+        }
+
         int a = 0;
         if (PlayerPrefs.HasKey("LoadS"))
         {
-            //a = PlayerPrefs.GetInt("LoadS");
+            a = PlayerPrefs.GetInt("LoadS");
         }
 
         if (a == 0)

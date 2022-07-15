@@ -24,6 +24,18 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public bool isMoreZero()
+    {
+        if (sumRank > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void SetRest(string res)
     {
         rec = res;

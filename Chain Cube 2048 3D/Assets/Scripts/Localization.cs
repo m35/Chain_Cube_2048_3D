@@ -33,11 +33,18 @@ public class Localization : MonoBehaviour
 
     public void ChangeLang()
     {
-        if (language != null)
+        if (language != null && !scoreManager.isMoreZero())
         {
             lang = language.text;
             text.text = item.Pl;
             gameManager.SetRest(item.Res);
+            scoreManager.SetRest(item.Rec);
+            PlayerPrefs.SetString("SaveLang", lang);
+        }
+        else if (language != null && scoreManager.isMoreZero())
+        {
+            lang = language.text;
+            text.text = item.Res;
             scoreManager.SetRest(item.Rec);
             PlayerPrefs.SetString("SaveLang", lang);
         }

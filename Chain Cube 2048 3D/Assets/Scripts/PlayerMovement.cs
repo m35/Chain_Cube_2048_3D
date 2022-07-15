@@ -44,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
     {
         InterstitialAds.myAds.LoadAd();
         shoots = 0;
+
+        gameObject.SetActive(false);
+
         //animator = GetComponent<Animator>();
         line = GetComponent<LineRenderer>();
         line.startWidth = line.endWidth = 1f;
@@ -65,6 +68,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (cube == null)
+        {
+            line.enabled = false;
+        }
+
         if (shoots >= UnityEngine.Random.Range(15, 25))
         {
             InterstitialAds.myAds.ShowAd();
@@ -76,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
             SpawnNewCube();
             timeBtwShots = startTimeBtwShots;
         }
-        else if (cube == null && timeBtwShots >= 0f)
+        else if (cube == null && timeBtwShots > 0f)
         {
             timeBtwShots -= Time.deltaTime;
             return;
@@ -112,7 +120,6 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        line.enabled = false;
         cube.AddForce(cube.transform.forward * forceValue, ForceMode.Impulse);
         cubeSpawn = null;
         cube = null;
