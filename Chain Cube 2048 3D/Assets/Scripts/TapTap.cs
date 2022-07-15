@@ -8,7 +8,6 @@ public class TapTap : MonoBehaviour
 
     public void Exit()
     {
-        Debug.Log(000);
         PlayerPrefs.SetInt("LoadS", 0);
         Application.Quit();
     }

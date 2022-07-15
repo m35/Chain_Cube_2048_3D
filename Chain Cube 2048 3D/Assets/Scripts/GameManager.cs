@@ -2,16 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    private Item item;
     [SerializeField] private GameObject play;
+    [SerializeField] private TextMeshProUGUI text;
     private string rest;
     private bool isAct;
     [SerializeField] private TextMeshProUGUI playText;
     [SerializeField] private GameObject[] buttonsLan;
     [SerializeField] private GameObject player;
+    [SerializeField] private ScoreManager scoreManager;
+    private string lang;
+
+    private void Awake()
+    {
+        if (PlayerPrefs.HasKey("SaveLang"))
+        {
+            lang = PlayerPrefs.GetString("SaveLang");
+            ChangeLang();
+        }
+        else
+        {
+            lang = "EN";
+            ChangeLang();
+        }
+    }
+
+    public void ChangeLang()
+    {
+        item = JsonUtility.FromJson<Item>(File.ReadAllText(Application.streamingAssetsPath + "/Localization/" + lang + ".json"));
+        Debug.Log(2);
+        text.text = item.Pl;
+        this.SetRest(item.Res);
+        scoreManager.SetRest(item.Rec);
+        PlayerPrefs.SetString("SaveLang", lang);
+    }
 
     private void Start()
     {
@@ -83,15 +112,23 @@ public class GameManager : MonoBehaviour
         player.SetActive(false);
 
         isAct = false;
-        foreach (GameObject btn in buttonsLan)
+        /*foreach (GameObject btn in buttonsLan)
         {
             btn.SetActive(true);
-        }
+        }*/
         PlayerPrefs.SetInt("LoadS", 1);
     }
 
     public void Reload()
     {
         Application.LoadLevel(Application.loadedLevel);
+    }
+
+    [System.Serializable]
+    public class Item
+    {
+        public string Pl;
+        public string Res;
+        public string Rec;
     }
 }
