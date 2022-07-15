@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         int a = 0;
         if (PlayerPrefs.HasKey("LoadS"))
         {
-            //a = PlayerPrefs.GetInt("LoadS");
+            a = PlayerPrefs.GetInt("LoadS");
         }
 
         if (a == 0)

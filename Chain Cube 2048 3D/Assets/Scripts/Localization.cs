@@ -33,6 +33,7 @@ public class Localization : MonoBehaviour
 
     public void ChangeLang()
     {
+        text.text = "1";
         if (language != null && !scoreManager.isMoreZero())
         {
             lang = language.text;
@@ -47,6 +48,10 @@ public class Localization : MonoBehaviour
             text.text = item.Res;
             scoreManager.SetRest(item.Rec);
             PlayerPrefs.SetString("SaveLang", lang);
+        }
+        else
+        {
+            text.text = "2";
         }
     }
     
