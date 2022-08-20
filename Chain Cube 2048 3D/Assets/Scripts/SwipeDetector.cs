@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class SwipeDetector : MonoBehaviour
 {
-    //public event Action<Vector2> onSwipeStart;
-    public event Action<Vector2> onSwipe;
-    public event Action<Vector2> onSwipeEnd;
+    public static event OnSwipeInput onSwipe;
+    public static event OnSwipeInput onSwipeEnd;
+    public delegate void OnSwipeInput(Vector2 direction);
 
     private bool isSwiping;
     private bool isMobile;
@@ -32,7 +32,10 @@ public class SwipeDetector : MonoBehaviour
                 if (isSwiping)
                 {
                     isSwiping = false;
-                    onSwipeEnd?.Invoke(tapPos);
+                    if (tapPos != null)
+                    {
+                        onSwipeEnd?.Invoke(tapPos);
+                    }
                 }
 
                 tapPos = Input.mousePosition;
@@ -51,12 +54,12 @@ public class SwipeDetector : MonoBehaviour
         else
         {
             if (Input.touchCount > 0)
-            {                    
+            {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
                     tapPos = (Vector3)Input.GetTouch(0).position;
                 }
-                   
+
                 if (Input.GetTouch(0).phase == TouchPhase.Canceled || Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
                     if (isSwiping)
@@ -72,7 +75,6 @@ public class SwipeDetector : MonoBehaviour
                 if (!isSwiping)
                 {
                     isSwiping = true;
-                    //onSwipeStart?.Invoke(Input.mousePosition - tapPos);
                 }
 
                 onSwipe?.Invoke((Vector3)Input.GetTouch(0).position - tapPos);

@@ -18,7 +18,7 @@ public class Cube : MonoBehaviour
 
     private ScoreManager score;
 
-    [SerializeField] private GameObject deadLine;
+    [SerializeField] private float deadLine;
     private bool isDeadLine;
 
     [SerializeField] private GameObject prefabCube;
@@ -34,6 +34,9 @@ public class Cube : MonoBehaviour
     [SerializeField] private float offsetC;
 
     private Animator animator;
+    private bool isSpawned;
+    private float timeBtwSpawn = 0f;
+    private float startTimeBtwSpawn = 0.45f;
 
     private void Start()
     {
@@ -68,8 +71,11 @@ public class Cube : MonoBehaviour
         }
         SetRank(rank);
 
-        score = FindObjectOfType<ScoreManager>();
         animator = GetComponent<Animator>();
+        isSpawned = true;
+        timeBtwSpawn = startTimeBtwSpawn;
+
+        score = FindObjectOfType<ScoreManager>();
         rb = GetComponent<Rigidbody>();
         cubeTail = GetComponent<TrailRenderer>();
         gameManager = FindObjectOfType<GameManager>();
@@ -99,12 +105,15 @@ public class Cube : MonoBehaviour
                 Smash(col);
                 transform.position = newCubeVector;
 
-                Instantiate(floatingRank, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.5f), Quaternion.identity);
+                /*
+                Instantiate(floatingRank, new Vector3(transform.position.x, transform.position.y, transform.position.z + 8f), Quaternion.Euler(44f, 0f, 0f));
                 floatingRank.GetComponentInChildren<FloatingRank>().rank = rank;
+                */
 
                 score.AddRank(rank);
 
-                animator.SetBool("isSpawned", true);
+                animator.enabled = true;
+                isSpawned = true;
 
                 GameObject closestCube = ClosestCube();
                 if (closestCube != null)
@@ -138,13 +147,28 @@ public class Cube : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDeadLine)
+        if (animator.enabled)
         {
-            if(transform.position.z <= deadLine.transform.position.z)
+            if (isSpawned && timeBtwSpawn < 0f)
             {
-                if (gameManager != null)
+                isSpawned = false;
+                timeBtwSpawn = startTimeBtwSpawn;
+            }
+            else if (isSpawned && timeBtwSpawn >= 0f)
+            {
+                timeBtwSpawn -= Time.deltaTime;
+            }
+            animator.SetBool("isSpawned", isSpawned);
+        }
+
+        if (isDeadLine && gameObject != null)
+        {
+            if (transform.position.z <= deadLine)
+            {
+                if (gameManager != null && PlayerMovement.isActiveForRestart)
                 {
                     gameManager.Restart();
+                    PlayerMovement.isActiveForRestart = false;
                 }
             }
         }
@@ -156,7 +180,7 @@ public class Cube : MonoBehaviour
         allCubes = GameObject.FindGameObjectsWithTag("Cube");
 
         float dist = 100f;
-        
+
         foreach (GameObject tmp in allCubes)
         {
             Cube tmpCube = tmp.gameObject.GetComponent<Cube>();
@@ -216,5 +240,14 @@ public class Cube : MonoBehaviour
     {
         public int rank;
         public Material material;
+    }
+
+    public void SetUnActiveIsSpawned()
+    {
+        isSpawned = false;
+        animator.SetBool("isSpawned", isSpawned);
+        animator.enabled = false;
+        transform.localScale = new Vector3(2f, 2f, 2f);
+        cubeTail.enabled = true;
     }
 }

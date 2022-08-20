@@ -24,18 +24,6 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public bool isMoreZero()
-    {
-        if (sumRank > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public void SetRest(string res)
     {
         rec = res;
@@ -45,10 +33,10 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         Best();
-        ShowBest();
+        //ShowBest();
         score = GetComponent<TextMeshProUGUI>();
         sumRank = 0;
-        score.text = sumRank.ToString();
+        //score.text = sumRank.ToString();
     }
 
     public void AddRank(int rank)

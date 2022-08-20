@@ -1036,7 +1036,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 0.65
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1.4561394
@@ -1153,9 +1153,7 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 801c39dcdd21427479e44e1391c9c590, type: 2}
   - rank: 32768
     material: {fileID: 2100000, guid: 29a6debeed45f6b42843c527e5492b03, type: 2}
-  score: {fileID: 4913701047590079324, guid: 5aa4bc11989bfae48b74b6f7e3f899ee, type: 3}
-  deadLine: {fileID: 3148348666964239994, guid: 9ec0ff946155d6e4c90bb266dc989122,
-    type: 3}
+  deadLine: 3.7
   prefabCube: {fileID: 7320699141273242567}
   floatingRank: {fileID: 8342816383793548878, guid: 0b99fff1d235d7147b334b2f1c87ca91,
     type: 3}

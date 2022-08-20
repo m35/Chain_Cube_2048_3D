@@ -14,16 +14,33 @@ public class Localization : MonoBehaviour
     [SerializeField] private TextMeshProUGUI language;
     private string lang;
 
+    private void Awake()
+    {
+        if (language != null)
+        {
+            lang = language.text;
+            StartCoroutine(ReloadFile());
+        }
+    }
+
+    private IEnumerator ReloadFile()
+    {
+        WWW data = new WWW(Application.streamingAssetsPath + "/" + lang + ".json");
+
+        yield return data;
+
+        item = JsonUtility.FromJson<Item>(data.text);
+    }
+
     private void Start()
     {
         if (language != null)
         {
             lang = language.text;
-            item = JsonUtility.FromJson<Item>(File.ReadAllText(Application.streamingAssetsPath + "/Localization/" + lang + ".json"));
             gameManager = FindObjectOfType<GameManager>();
             scoreManager = FindObjectOfType<ScoreManager>();
         }
-        else
+        else if (language == null && gameObject.tag != "Play")
         {
             gameManager = FindObjectOfType<GameManager>();
             scoreManager = FindObjectOfType<ScoreManager>();
@@ -33,8 +50,7 @@ public class Localization : MonoBehaviour
 
     public void ChangeLang()
     {
-        text.text = "1";
-        if (language != null && !scoreManager.isMoreZero())
+        if (language != null && PlayerMovement.isActiveForRestart)
         {
             lang = language.text;
             text.text = item.Pl;
@@ -42,19 +58,15 @@ public class Localization : MonoBehaviour
             scoreManager.SetRest(item.Rec);
             PlayerPrefs.SetString("SaveLang", lang);
         }
-        else if (language != null && scoreManager.isMoreZero())
+        else if (language != null && !PlayerMovement.isActiveForRestart)
         {
             lang = language.text;
             text.text = item.Res;
             scoreManager.SetRest(item.Rec);
             PlayerPrefs.SetString("SaveLang", lang);
         }
-        else
-        {
-            text.text = "2";
-        }
     }
-    
+
     public void Push()
     {
         gameManager.Push();

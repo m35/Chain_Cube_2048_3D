@@ -13,24 +13,62 @@ public class GameManager : MonoBehaviour
     private string rest;
     private bool isAct;
     [SerializeField] private TextMeshProUGUI playText;
-    [SerializeField] private GameObject[] buttonsLan;
     [SerializeField] private GameObject player;
-    [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private GameObject[] buttonsLan;
+
+    private void Awake()
+    {
+        lang = "UA";
+        if (PlayerPrefs.HasKey("SaveLang"))
+        {
+            lang = PlayerPrefs.GetString("SaveLang");
+        }
+        PlayerMovement.isActiveForRestart = true;
+        StartCoroutine(ReloadFile());
+    }
+
+    private IEnumerator ReloadFile()
+    {
+        WWW data = new WWW(Application.streamingAssetsPath + "/" + lang + ".json");
+
+        yield return data;
+
+        item = JsonUtility.FromJson<Item>(data.text);
+        ChangeLang();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PlayerPrefs.SetInt("LoadS", 0);
+            Application.Quit();
+        }
+    }
+
     public void ChangeLang()
     {
-        item = JsonUtility.FromJson<Item>(File.ReadAllText(Application.streamingAssetsPath + "/Localization/" + lang + ".json"));
-        text.text = item.Pl;
-        rest = item.Res;
-        scoreManager.SetRest(item.Rec);
-        PlayerPrefs.SetString("SaveLang", lang);
+        if (item != null)
+        {
+            playText.text = item.Pl;
+            rest = item.Res;
+            scoreManager.SetRest(item.Rec);
+            PlayerPrefs.SetString("SaveLang", lang);
+        }
+        else
+        {
+            playText.text = "";
+            rest = "";
+            scoreManager.SetRest("");
+        }
     }
 
     private void Start()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
-        
+        /*
         if (PlayerPrefs.HasKey("SaveLang"))
         {
             lang = PlayerPrefs.GetString("SaveLang");
@@ -41,7 +79,7 @@ public class GameManager : MonoBehaviour
             lang = "EN";
             ChangeLang();
         }
-
+        */
         int a = 0;
         if (PlayerPrefs.HasKey("LoadS"))
         {
@@ -67,15 +105,6 @@ public class GameManager : MonoBehaviour
                 btn.SetActive(false);
             }
             player.SetActive(true);
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PlayerPrefs.SetInt("LoadS", 0);
-            Application.Quit();
         }
     }
 
@@ -106,7 +135,23 @@ public class GameManager : MonoBehaviour
         playText.text = rest;
         play.SetActive(true);
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-        playerMovement.OffCube();
+        if (playerMovement != null)
+        {
+            Debug.Log("not_null");
+            if (playerMovement.isActiveAndEnabled)
+            {
+                Debug.Log("not_off");
+                playerMovement.OffCube();
+            }
+            else
+            {
+                Debug.Log("off");
+            }
+        }
+        else
+        {
+            Debug.Log("null");
+        }
         player.SetActive(false);
 
         isAct = false;
