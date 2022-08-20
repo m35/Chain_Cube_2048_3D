@@ -314,6 +314,8 @@ GameObject:
   - component: {fileID: 330585546}
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
+  - component: {fileID: 330585548}
+  - component: {fileID: 330585547}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -386,6 +388,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 44.364, y: 0, z: 0}
+--- !u!114 &330585547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77222442167d01041961880e1abfe89d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a401346677bc04a9d2c6e51b92c819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,8 +1125,12 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2072276042857201372, guid: baebfae96bc75dc439e615c9d7d4c6f1, type: 3}
+      propertyPath: adShoots
+      value: 
+      objectReference: {fileID: 330585547}
+    - target: {fileID: 2072276042857201372, guid: baebfae96bc75dc439e615c9d7d4c6f1, type: 3}
       propertyPath: normCoef
-      value: 1.3
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 2072276042857201372, guid: baebfae96bc75dc439e615c9d7d4c6f1, type: 3}
       propertyPath: leftBorder

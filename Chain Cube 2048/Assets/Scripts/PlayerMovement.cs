@@ -25,35 +25,31 @@ public class PlayerMovement : MonoBehaviour
 
     private LineRenderer line;
 
+    [SerializeField] private AdShoots adShoots;
     private int shoots;
 
     private void SpawnNewCube()
     {
         shoots++;
-        /*
         if (shoots >= UnityEngine.Random.Range(15, 25))
         {
             Time.timeScale = 0f;
-            InterstitialAds.myAds.ShowAd();
+            adShoots.ShowAd();
             shoots = 0;
         }
         else
         {
-            */
             line.enabled = true;
             cubeSpawn = Instantiate(prefabCube, transform.position, transform.rotation);
             cube = cubeSpawn.GetComponent<Rigidbody>();
             cube.isKinematic = true;
             cubeTail = cubeSpawn.GetComponent<TrailRenderer>();
             cubeTail.enabled = false;
-        //}
+        }
     }
 
     private void Start()
     {
-        //Time.timeScale = 0.1f;
-
-        //InterstitialAds.myAds.LoadAd();
         shoots = 0;
 
         line = GetComponent<LineRenderer>();
